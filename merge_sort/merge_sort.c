@@ -7,6 +7,40 @@
 #include <stdlib.h>
 #include <malloc.h>
 
+void heBin2(int (*a)[],int lenA,int (*b)[],int lenB,int (*res)[])//数组指针
+{
+    int i=0;
+    int j=0;
+    int k=0;
+    while(i<lenA || j <lenB)
+    {
+        if((*a)[i]<(*b)[j])
+        {
+            (*res)[k++] = (*a)[i++];//代码简洁了些
+        }else
+        {
+            (*res)[k++] = (*b)[j++];
+        }
+
+        if(i==lenA)
+        {
+            while(j<lenB)
+            {
+                (*res)[k++] = (*b)[j++];
+            }
+//            break;//
+
+        }else if(j==lenB)
+        {
+            while(i<lenA)
+            {
+                (*res)[k++] = (*a)[i++];
+            }
+//            break;//
+        }
+    }
+    return ;
+}
 void heBin(int *a,int lenA,int *b,int lenB,int *res)
 {
     int i=0;
@@ -70,6 +104,8 @@ void guiBin(int * intP,int len,int *res){
     guiBin(intP+q,len-q,arrB);//*(0+4),9-4
 
     heBin(arrA,q,arrB,len-q,res);
+    //方法二，高级点用法
+    //heBin2((int (*)[])arrA,q,(int (*)[])arrB,len-q,(int (*)[])res);//以数组指针传递
 
     free(arrA);
     free(arrB);
